@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <style>
+        img{
+            width: 100%;
+            position: absolute;
+            z-index: -1;
+            opacity: 0.2;
+        }
+        .mainb{
+            width: 110px;
+            height: 45px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        #display
+        {
+            display: none;
+        }
+        #alert
+        {
+            display: none;
+        }
+        button:hover{
+            cursor: pointer;
+        }
+        #note
+        {
+            display: none;
+            font-size: larger;
+            color: green;
+            font-weight: bold;
+        }
+        #offmsg
+        {
+            display: none;
+            color: green;
+        }
+        #not
+        {
+            color:red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <img src="back1.webp" alt="back">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color: green;color: white;text-align: center;">
+                <h1>Kalos Agrotis</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+                <h2>Smart Irrigation system</h2>
+            </div>
+        </div>
+        <div class="row" style="margin-top:5em;">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <center style="margin-bottom: 50px;"><button class="mainb" onclick="next()" style="background-color: green;color: white;">ON</button></center>
+                <div id="display">
+                <center>
+                <label for="passcode" style="width:60%;"><b>Enter passcode</b><br>
+                <input type="text" id="passcode" class="form-control" style="width:50%;"></label></center>
+                <center><button style="background-color: blue;color: aliceblue;" onclick="verify()">submit</button></center></div><br><br>
+                <center><span id="alert" style="font-weight: bold"></span></center>
+                <center><span id="note"></span></center>
+                
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12" style="text-align: center;">
+                <button style="background-color: red;color: white;" class="mainb" onclick="off()">OFF</button>
+                <center style="margin-top:50px;"><span id="offmsg" style="font-weight: bold"></span></center>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 150px;">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <center><h2 style="font-weight: bold;">NO <span style="color:blue"> BLUE</span> NO <span style="color:green;"> GREEN</span></h2></center>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    var flag=0;
+    function next()
+    {
+        document.getElementById("display").style.display="initial";
+        if(flag==1)
+        {
+            var temp = document.querySelector('#display');
+            temp.innerHTML="";
+            temp.innerHTML=`<center><div id="not" style="font-size:20px;">CANNOT TURN IT ON\nAs maximum moisture level is reached</div></center>`;
+            document.getElementById("offmsg").innerText="";
+        }
+        flag++;
+
+    }
+
+    function verify()
+    {
+    var val = document.getElementById("passcode").value;
+
+    if(val!="12345")
+    {
+        document.getElementById("alert").style.display="initial";
+        document.getElementById("alert").innerText="You have entered wrong passcode\nEnter again";
+        document.getElementById("alert").style.color="red";
+        document.getElementById("passcode").value="";
+        
+    }
+
+    else if(val=="12345")
+    {
+        document.getElementById("alert").style.display="initial";
+        document.getElementById("alert").innerText="Your passcode is correct";
+        document.getElementById("alert").style.color="green";
+        document.getElementById("note").style.display="initial";
+        document.getElementById("note").innerText="MOTOR TURNED ON\nIt will be automatically turned off when maximum moisture is reached";
+    }
+}
+
+function off()
+{
+    document.getElementById("offmsg").style.display="initial";
+    document.getElementById("offmsg").innerText="MOTOR TURNED OFF\nUser can turn it on manually if soil moisture level is low";
+    document.getElementById("alert").innerText="";
+    document.getElementById("note").innerText="";
+    document.getElementById("display").style.display="none";
+
+}
+
+
+</script>
